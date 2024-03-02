@@ -1,7 +1,5 @@
 import Students from "./Students";
-import AddStudent from "./AddStudent";
-const Dashboard = (props) => {
-  const { setStudentData, studentData, setNewStudent, studentArry } = props;
+const Dashboard = ({ students }) => {
   return (
     <>
       <div className="container">
@@ -14,22 +12,15 @@ const Dashboard = (props) => {
               <th>Major</th>
               <th>University</th>
               <th>Average Grade</th>
+              <th>Delete Student</th>
             </tr>
           </thead>
           <tbody>
-            {studentArry.map((student) => (
-              <Students student={student} key={student.id} />
+            {students.map((student) => (
+              <Students student={student} key={student.id} id={student.id} />
             ))}
           </tbody>
         </table>
-        <div className="form-container">
-          <AddStudent
-            studentData={studentData}
-            setStudentData={setStudentData}
-            studentArry={studentArry}
-            setNewStudent={setNewStudent}
-          />
-        </div>
       </div>
     </>
   );

@@ -1,30 +1,20 @@
-import students from "./data/students";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Dashboard from "./components/Dashboard";
 import React, { useState } from "react";
+import DbStudents from "./data/students";
+import AddStudent from "./components/AddStudent";
 
 function App() {
-  const [studentArry, setNewStudent] = useState(students);
+  const [students, setStudents] = useState(DbStudents);
 
-  const [studentData, setStudentData] = useState({
-    id: "",
-    name: "",
-    age: "",
-    major: "",
-    university: "",
-    averageGrade: "",
-  });
+  const deletStudent = () => {};
 
   return (
     <main>
       <Header />
-      <Dashboard
-        studentData={studentData}
-        setStudentData={setStudentData}
-        studentArry={studentArry}
-        setNewStudent={setNewStudent}
-      />
+      <Dashboard students={students} />
+      <AddStudent students={students} setStudents={setStudents} />
       <Footer />
     </main>
   );

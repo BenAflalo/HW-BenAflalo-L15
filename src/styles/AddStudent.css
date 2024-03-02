@@ -1,0 +1,28 @@
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  background-color: gray;
+  margin-bottom: 10px;
+}
+input {
+  max-width: 200px;
+}
+.form-container {
+  margin-left: 10px;
+  display: inline-block;
+}
+label {
+  font-size: medium;
+}
+button {
+  position: relative;
+  left: 35px;
+  border: 0;
+  border-radius: 10px;
+  color: white;
+  background-color: green;
+  padding: 5px;
+  margin-bottom: 5px;
+  width: 100px;
+}

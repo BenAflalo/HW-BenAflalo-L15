@@ -1,24 +1,29 @@
 import React, { useState } from "react";
 
-const AddStudent = (props) => {
-  const { setStudentData, studentData, setNewStudent, studentArry } = props;
+const AddStudent = ({ students, setStudents }) => {
+  const [studentData, setStudentData] = useState({
+    id: "",
+    name: "",
+    age: "",
+    major: "",
+    university: "",
+    averageGrade: "",
+  });
+
   const handleChange = (event) => {
     setStudentData({ ...studentData, [event.target.id]: event.target.value });
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    const lastStudent = studentArry.pop();
+    const lastStudent = students.pop();
     let id = lastStudent.id;
     id++;
-    studentArry.push(lastStudent);
+    students.push(lastStudent);
     studentData.id = id;
-    studentArry.push(studentData);
-    const newStudentArry = studentArry;
-    setNewStudent(newStudentArry);
-    console.log(newStudentArry); //you can see it works just not rendering
+    setStudents((students) => [...students, studentData]);
   };
   return (
-    <div>
+    <div className="form-container">
       <h3>Add student</h3>
       <form onSubmit={handleSubmit}>
         <label htmlFor="name">Student name</label>
