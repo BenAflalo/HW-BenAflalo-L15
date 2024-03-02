@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import Button from "./button";
 
-const AddStudent = ({ students, setStudents }) => {
+const AddStudent = ({ students, setStudents, EditStudent }) => {
   const [studentData, setStudentData] = useState({
     id: "",
     name: "",
@@ -66,7 +67,9 @@ const AddStudent = ({ students, setStudents }) => {
           onChange={handleChange}
           value={studentData.averageGrade}
         />
-        <button>Add student</button>
+        <div className="btn-div">
+          <Button className="btn-submit">Submit</Button>
+        </div>
       </form>
     </div>
   );

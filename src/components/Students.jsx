@@ -1,6 +1,6 @@
 import Button from "./button";
 
-const Students = ({ student, id }) => {
+const Students = ({ student, id, deleteStudent, EditStudent }) => {
   return (
     <tr>
       <td>{student.name}</td>
@@ -9,8 +9,13 @@ const Students = ({ student, id }) => {
       <td>{student.university}</td>
       <td>{student.averageGrade}</td>
       <td className="action">
-        <Button onClick={() => removePost(id)} className="btn-delete">
+        <Button onClick={() => deleteStudent(id)} className="btn-delete">
           Delete
+        </Button>
+      </td>
+      <td className="action">
+        <Button onClick={() => EditStudent(id)} className="btn-edit">
+          Edit
         </Button>
       </td>
     </tr>

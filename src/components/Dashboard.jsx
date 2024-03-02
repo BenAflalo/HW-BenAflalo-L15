@@ -1,5 +1,5 @@
 import Students from "./Students";
-const Dashboard = ({ students }) => {
+const Dashboard = ({ students, deleteStudent, EditStudent }) => {
   return (
     <>
       <div className="container">
@@ -13,11 +13,18 @@ const Dashboard = ({ students }) => {
               <th>University</th>
               <th>Average Grade</th>
               <th>Delete Student</th>
+              <th>Edit Student</th>
             </tr>
           </thead>
           <tbody>
             {students.map((student) => (
-              <Students student={student} key={student.id} id={student.id} />
+              <Students
+                student={student}
+                key={student.id}
+                id={student.id}
+                deleteStudent={deleteStudent}
+                EditStudent={EditStudent}
+              />
             ))}
           </tbody>
         </table>

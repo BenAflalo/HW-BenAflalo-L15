@@ -15,14 +15,7 @@ input {
 label {
   font-size: medium;
 }
-button {
-  position: relative;
-  left: 35px;
-  border: 0;
-  border-radius: 10px;
-  color: white;
-  background-color: green;
-  padding: 5px;
-  margin-bottom: 5px;
-  width: 100px;
+.btn-div {
+  display: flex;
+  justify-content: center;
 }

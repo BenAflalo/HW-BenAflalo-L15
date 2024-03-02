@@ -4,3 +4,14 @@
 body {
   margin: 0;
 }
+button {
+  position: relative;
+  /* left: 35px; */
+  border: 0;
+  border-radius: 10px;
+  color: white;
+  background-color: green;
+  padding: 5px;
+  margin-bottom: 5px;
+  width: 100px;
+}
