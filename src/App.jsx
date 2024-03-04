@@ -1,14 +1,13 @@
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Dashboard from "./components/Dashboard";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DbStudents from "./data/students";
 import AddStudent from "./components/AddStudent";
 import getStudentAsync from "./services/userService";
 
 function App() {
-  console.log(getStudentAsync());
-  const [students, setStudents] = useState(DbStudents);
+  const [students, setStudents] = useState([]);
   const [studentData, setStudentData] = useState({
     id: "",
     name: "",
@@ -16,6 +15,17 @@ function App() {
     major: "",
     university: "",
     averageGrade: "",
+  });
+  useEffect(() => {
+    const fetchDataAsync = async () => {
+      try {
+        const response = await getStudentAsync();
+        setStudents(response);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchDataAsync();
   });
 
   const deleteStudent = (studentId) => {
