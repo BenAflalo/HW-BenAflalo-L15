@@ -1,5 +1,5 @@
 import Students from "./Students";
-const Dashboard = ({ students, deleteStudent, EditStudent }) => {
+const Dashboard = ({ students, deleteStudent, fillStudentForm }) => {
   return (
     <>
       <div className="container">
@@ -23,7 +23,7 @@ const Dashboard = ({ students, deleteStudent, EditStudent }) => {
                 key={student.id}
                 id={student.id}
                 deleteStudent={deleteStudent}
-                EditStudent={EditStudent}
+                fillStudentForm={fillStudentForm}
               />
             ))}
           </tbody>

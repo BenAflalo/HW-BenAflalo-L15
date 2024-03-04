@@ -1,16 +1,7 @@
 import React, { useState } from "react";
 import Button from "./button";
 
-const AddStudent = ({ students, setStudents, EditStudent }) => {
-  const [studentData, setStudentData] = useState({
-    id: "",
-    name: "",
-    age: "",
-    major: "",
-    university: "",
-    averageGrade: "",
-  });
-
+const AddStudent = ({ students, setStudents, studentData, setStudentData }) => {
   const handleChange = (event) => {
     setStudentData({ ...studentData, [event.target.id]: event.target.value });
   };
@@ -22,11 +13,42 @@ const AddStudent = ({ students, setStudents, EditStudent }) => {
     students.push(lastStudent);
     studentData.id = id;
     setStudents((students) => [...students, studentData]);
+    clearData();
   };
+  const clearData = () => {
+    setStudentData({
+      id: "",
+      name: "",
+      age: "",
+      major: "",
+      university: "",
+      averageGrade: "",
+    });
+  };
+  const editStudent = (event) => {
+    event.preventDefault();
+    const studentId = studentData.id;
+    setStudents(
+      students.map((student) => {
+        if (student.id === studentId) {
+          setStudentData({
+            ...studentData,
+            [event.target.id]: event.target.value,
+          });
+          return studentData;
+        } else {
+          return student;
+        }
+      })
+    );
+    clearData();
+  };
+
   return (
     <div className="form-container">
       <h3>Add student</h3>
-      <form onSubmit={handleSubmit}>
+
+      <form onSubmit={studentData.id === "" ? handleSubmit : editStudent}>
         <label htmlFor="name">Student name</label>
         <input
           type="text"
@@ -68,7 +90,15 @@ const AddStudent = ({ students, setStudents, EditStudent }) => {
           value={studentData.averageGrade}
         />
         <div className="btn-div">
-          <Button className="btn-submit">Submit</Button>
+          {studentData.id === "" ? (
+            <Button className="btn-submit" type="submit">
+              Submit
+            </Button>
+          ) : (
+            <Button className="btn-save" type="submit">
+              Save Changes
+            </Button>
+          )}
         </div>
       </form>
     </div>

@@ -4,9 +4,19 @@ import Dashboard from "./components/Dashboard";
 import React, { useState } from "react";
 import DbStudents from "./data/students";
 import AddStudent from "./components/AddStudent";
+import getStudentAsync from "./services/userService";
 
 function App() {
+  console.log(getStudentAsync());
   const [students, setStudents] = useState(DbStudents);
+  const [studentData, setStudentData] = useState({
+    id: "",
+    name: "",
+    age: "",
+    major: "",
+    university: "",
+    averageGrade: "",
+  });
 
   const deleteStudent = (studentId) => {
     const updatedStudents = students.filter(
@@ -14,23 +24,27 @@ function App() {
     );
     setStudents(updatedStudents);
   };
-  const EditStudent = (studentId) => {
+  const fillStudentForm = (studentId) => {
     const studentToEdit = students.filter(
       (student) => student.id === studentId
     );
+    const student = studentToEdit.pop();
+    setStudentData(student);
   };
+
   return (
     <main>
       <Header />
       <Dashboard
         students={students}
         deleteStudent={deleteStudent}
-        EditStudent={EditStudent}
+        fillStudentForm={fillStudentForm}
       />
       <AddStudent
         students={students}
         setStudents={setStudents}
-        EditStudent={EditStudent}
+        studentData={studentData}
+        setStudentData={setStudentData}
       />
       <Footer />
     </main>
