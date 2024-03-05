@@ -4,15 +4,38 @@ h2 {
 table,
 th,
 td {
-  border: 2px ridge white;
   border-collapse: collapse;
-  padding: 5px;
+  padding: 12px 15px;
+  border-bottom: 1px solid #ddd;
 }
 .container {
   display: flex;
   flex-direction: column;
 }
 th {
-  background-color: rgb(92, 196, 92);
-  color: white;
+  background-color: #007bff;
+  color: #fff;
+  text-align: left;
+}
+.action {
+  text-align: center;
+}
+tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+tbody tr:hover {
+  background-color: #f1f1f1;
+}
+.btn-delete,
+.btn-edit {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
