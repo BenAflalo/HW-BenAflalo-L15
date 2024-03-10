@@ -4,10 +4,16 @@ import Dashboard from "./components/Dashboard";
 import React, { useEffect, useState } from "react";
 import DbStudents from "./data/students";
 import AddStudent from "./components/AddStudent";
-import getStudentAsync from "./services/userService";
+import { userService } from "./services/userService";
+import LoginForm from "./components/LoginForm";
+import RegisterForm from "./components/RegisterForm";
+import { storageService } from "./services/storageService";
 
 function App() {
-  const [students, setStudents] = useState([]);
+  // --- states----
+  const [students, setStudents] = useState(DbStudents);
+  const [loggedInUser, setLoggedInUser] = useState(null);
+  const [showRegister, setShowRegister] = useState(false);
   const [studentData, setStudentData] = useState({
     id: "",
     name: "",
@@ -16,18 +22,26 @@ function App() {
     university: "",
     averageGrade: "",
   });
+  // ---- useEffect ----
   useEffect(() => {
-    const fetchDataAsync = async () => {
-      try {
-        const response = await getStudentAsync();
-        setStudents(response);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchDataAsync();
-  });
+    const loggedInUser = storageService.getLoggedInUser();
 
+    if (loggedInUser) {
+      setLoggedInUser(loggedInUser);
+    }
+  }, []);
+  // useEffect(() => {
+  //   const fetchDataAsync = async () => {
+  //     try {
+  //       const response = await userService.getStudentAsync();
+  //       setStudents(response);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
+  //   fetchDataAsync();
+  // });
+  // ----- functions ----
   const deleteStudent = (studentId) => {
     const updatedStudents = students.filter(
       (student) => student.id !== studentId
@@ -41,21 +55,59 @@ function App() {
     const student = studentToEdit.pop();
     setStudentData(student);
   };
+  const handleLogout = () => {
+    userService.logout();
+    setLoggedInUser(null);
+  };
+
+  const handleAuth = (username, password, isRegister = false, email = "") => {
+    if (isRegister) {
+      userService.createUser(username, email, password);
+      setShowRegister(false);
+    } else {
+      const user = userService.login(username, password);
+      console.log(user);
+      if (user === false) {
+        alert("Invalid credentials");
+        return;
+      } else if (user === null) {
+        alert("User doesn't exist");
+        setShowRegister(true);
+      }
+      setLoggedInUser(user);
+    }
+  };
 
   return (
     <main>
-      <Header />
-      <Dashboard
-        students={students}
-        deleteStudent={deleteStudent}
-        fillStudentForm={fillStudentForm}
-      />
-      <AddStudent
-        students={students}
-        setStudents={setStudents}
-        studentData={studentData}
-        setStudentData={setStudentData}
-      />
+      <Header handleLogout={handleLogout} loggedInUser={loggedInUser} />
+      {!loggedInUser ? (
+        showRegister ? (
+          <RegisterForm
+            handleAuth={handleAuth}
+            setShowRegister={setShowRegister}
+          />
+        ) : (
+          <LoginForm
+            handleAuth={handleAuth}
+            setShowRegister={setShowRegister}
+          />
+        )
+      ) : (
+        <>
+          <Dashboard
+            students={students}
+            deleteStudent={deleteStudent}
+            fillStudentForm={fillStudentForm}
+          />
+          <AddStudent
+            students={students}
+            setStudents={setStudents}
+            studentData={studentData}
+            setStudentData={setStudentData}
+          />
+        </>
+      )}
       <Footer />
     </main>
   );
