@@ -20,7 +20,7 @@ function createUser(username, email, password, avatar = "") {
     username,
     password,
     email,
-    avatar,
+    avatar: `https://robohash.org/${username}`,
     isAdmin: false,
     createdAt: new Date(),
   };

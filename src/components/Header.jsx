@@ -9,6 +9,7 @@ const Header = ({ loggedInUser, handleLogout }) => {
           {loggedInUser ? (
             <>
               <h4>Welcome aboard, {loggedInUser.username}</h4>
+              <img src={loggedInUser.avatar} alt="Avatar image" />
               <Button onClick={() => handleLogout()} className="logout-btn">
                 Logout
               </Button>

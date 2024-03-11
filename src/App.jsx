@@ -59,7 +59,6 @@ function App() {
     userService.logout();
     setLoggedInUser(null);
   };
-
   const handleAuth = (username, password, isRegister = false, email = "") => {
     if (isRegister) {
       userService.createUser(username, email, password);
