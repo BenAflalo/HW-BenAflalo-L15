@@ -18,30 +18,21 @@ const Admin = ({ user, deleteUser, users, setUsers }) => {
     setIsInputEnabled(false);
     const user = storageService.getUser(id);
     setNewUser(user);
-    // console.log(newUser);
-    // console.log(user);
   };
   const handleChange = (e) => {
     setNewUser({ ...newUser, [e.target.className]: e.target.Value });
-    console.log(typeof e.currentTarget.Value);
     console.log(newUser);
   };
 
   const editUser = (id) => {
-    // const newUsers =
     // setUsers()
     users.map((user) => {
       if (user.id === id) {
         return newUser;
-        // setStudentData({
-        //   ...studentData,
-        //   [event.target.id]: event.target.value,
-        // })
       } else {
         return user;
       }
     });
-    // console.log(newUsers);
     console.log(newUser);
   };
   return (

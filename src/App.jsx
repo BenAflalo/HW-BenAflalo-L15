@@ -8,7 +8,6 @@ import { userService } from "./services/userService";
 import LoginForm from "./components/LoginForm";
 import RegisterForm from "./components/RegisterForm";
 import { storageService } from "./services/storageService";
-// import Admin from "./components/Admin";
 
 function App() {
   // --- states----
