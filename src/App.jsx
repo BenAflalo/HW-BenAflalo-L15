@@ -8,10 +8,11 @@ import { userService } from "./services/userService";
 import LoginForm from "./components/LoginForm";
 import RegisterForm from "./components/RegisterForm";
 import { storageService } from "./services/storageService";
+// import Admin from "./components/Admin";
 
 function App() {
   // --- states----
-  const [students, setStudents] = useState(DbStudents);
+  const [students, setStudents] = useState([]);
   const [loggedInUser, setLoggedInUser] = useState(null);
   const [showRegister, setShowRegister] = useState(false);
   const [studentData, setStudentData] = useState({
@@ -30,17 +31,17 @@ function App() {
       setLoggedInUser(loggedInUser);
     }
   }, []);
-  // useEffect(() => {
-  //   const fetchDataAsync = async () => {
-  //     try {
-  //       const response = await userService.getStudentAsync();
-  //       setStudents(response);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-  //   fetchDataAsync();
-  // });
+  useEffect(() => {
+    const fetchDataAsync = async () => {
+      try {
+        const response = await userService.getStudentAsync();
+        setStudents(response);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchDataAsync();
+  }, []);
   // ----- functions ----
   const deleteStudent = (studentId) => {
     const updatedStudents = students.filter(
@@ -66,7 +67,6 @@ function App() {
       setShowRegister(false);
     } else {
       const user = userService.login(username, password);
-      console.log(user);
       if (user === false) {
         alert("Invalid credentials");
         return;
@@ -95,16 +95,17 @@ function App() {
         )
       ) : (
         <>
-          <Dashboard
-            students={students}
-            deleteStudent={deleteStudent}
-            fillStudentForm={fillStudentForm}
-          />
           <AddStudent
             students={students}
             setStudents={setStudents}
             studentData={studentData}
             setStudentData={setStudentData}
+          />
+          <Dashboard
+            students={students}
+            deleteStudent={deleteStudent}
+            fillStudentForm={fillStudentForm}
+            loggedInUser={loggedInUser}
           />
         </>
       )}
