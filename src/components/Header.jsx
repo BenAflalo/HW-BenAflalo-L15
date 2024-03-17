@@ -1,6 +1,8 @@
+import { useUser } from "../context/AuthProvider";
 import Button from "./button";
 
-const Header = ({ loggedInUser, handleLogout }) => {
+const Header = () => {
+  const { loggedInUser, handleLogout } = useUser();
   return (
     <>
       <header>
