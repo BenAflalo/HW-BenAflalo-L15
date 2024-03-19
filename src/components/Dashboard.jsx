@@ -9,7 +9,6 @@ const Dashboard = ({
   fillStudentForm,
   loggedInUser,
 }) => {
-  const [showAdmin, setShowAdmin] = useState(loggedInUser.isAdmin);
   const [users, setUsers] = useState(storageService.getUsers());
 
   const deleteUser = (id) => {
@@ -45,7 +44,7 @@ const Dashboard = ({
             ))}
           </tbody>
         </table>
-        {showAdmin && (
+        {loggedInUser?.isAdmin && (
           <Admin users={users} deleteUser={deleteUser} setUsers={setUsers} />
         )}
       </div>

@@ -51,7 +51,9 @@ const RegisterPage = () => {
       <div className="auth-switch">
         <p>
           Already have an account?{"  "}{" "}
-          <button onClick={() => navigate("/login")}>Sign in</button>
+          <button className="btn-register" onClick={() => navigate("/login")}>
+            Sign in
+          </button>
         </p>
       </div>
     </section>

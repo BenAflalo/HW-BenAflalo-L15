@@ -47,7 +47,9 @@ const LoginPage = () => {
       <div className="auth-switch">
         <p>
           Don't have an account?{" "}
-          <button onClick={() => navigate("/signup")}>Sign up</button>
+          <button className="btn-login" onClick={() => navigate("/signup")}>
+            Sign up
+          </button>
         </p>
       </div>
     </section>
