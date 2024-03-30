@@ -12,23 +12,25 @@ const UserPreview = ({ user, deleteUser, users, setUsers }) => {
     setEditedUser(user);
   };
   const handleChange = (e) => {
-    setEditedUser({ ...editedUser, [e.target.name]: e.target.value });
+    setEditedUser({
+      ...editedUser,
+      [e.target.name]: e.target.value,
+    });
+    console.log(editedUser);
   };
   const handleChecked = (e) => {
     setEditedUser({ ...editedUser, isAdmin: !editedUser.isAdmin });
   };
   const editUser = (id) => {
-    setEditedUser({
-      ...editedUser,
-      avatar: `https://robohash.org/${editedUser.username}`,
-    });
     const updatedUsers = users.map((user) => {
       if (user.id === id) {
+        editedUser.avatar = `https://robohash.org/${editedUser.username}`;
         return editedUser;
       } else {
         return user;
       }
     });
+    console.log(updatedUsers);
     setUsers(updatedUsers);
     storageService.saveUsers(updatedUsers);
     setIsInputEnabled(true);
